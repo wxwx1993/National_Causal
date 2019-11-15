@@ -45,7 +45,6 @@ RUN;
 
 /****************************************************/
 /*full analysis*/
-/*efron is much faster than breslow*/
 ODS HTML FILE='national_main_2016.html' path='/nfs/home/X/xwu/shared_space/ci3_xwu/National_Causal/Code2016_temp/';
 
 PROC phreg data=national2016;

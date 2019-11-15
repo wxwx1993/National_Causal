@@ -24,7 +24,7 @@ sum(zip_data2016$dead/zip_data2016$time_count*(1-(1/1.054)^((zip_data2016$pm25_e
 sum(zip_data2016$dead/zip_data2016$time_count*(1-(1/1.083)^((zip_data2016$pm25_ensemble-12)/10))*zip_data2016$time_count)
 
 
-# Calculate the number of death saved due to compliance of WHO standard (PM2.5 <= 10 mug/m^3) compared to current NAAQS (PM2.5 <= 12 mug/m^3)
+# Calculate the additional number of death saved due to compliance of WHO standard (PM2.5 <= 10 mug/m^3) compared to current NAAQS (PM2.5 <= 12 mug/m^3)
 zip_data2016_10 <- subset(zip_data, pm25_ensemble >10 & year>2006, year<=2016)
 zip_data2016_10[zip_data2016_10$pm25_ensemble >12, ]$pm25_ensemble = 12
 
