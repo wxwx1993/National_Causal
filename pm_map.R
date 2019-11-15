@@ -4,8 +4,8 @@ library(sp)
 library("raster")
 
 # Load data
-pm_2016 <- readRDS("~/Desktop/National_Causal/Maps/PredictionStep2_Annual_PM25_USGrid_20160101_20161231.rds")
-pm <- readRDS("~/Desktop/National_Causal/Maps/USGridSite.rds")
+pm_2016 <- readRDS("./National_Causal/Maps/PredictionStep2_Annual_PM25_USGrid_20160101_20161231.rds")
+pm <- readRDS("./National_Causal/Maps/USGridSite.rds")
 pm$pm_2016 <- as.numeric(pm_2016)
 states <- shapefile("cb_2017_us_county_500k.shp")
 pm <- as.data.frame(pm)
@@ -48,8 +48,8 @@ dev.off()
 
 
 
-pm_2000 <- readRDS("~/Desktop/National_Causal/Maps/PredictionStep2_Annual_PM25_USGrid_20000101_20001231.rds")
-pm <- readRDS("~/Desktop/National_Causal/Maps/USGridSite.rds")
+pm_2000 <- readRDS("./National_Causal/Maps/PredictionStep2_Annual_PM25_USGrid_20000101_20001231.rds")
+pm <- readRDS("./National_Causal/Maps/USGridSite.rds")
 pm$pm_2000 <- as.numeric(pm_2000)
 states <- shapefile("cb_2017_us_county_500k.shp")
 pm <- as.data.frame(pm)

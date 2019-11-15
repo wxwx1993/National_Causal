@@ -22,8 +22,9 @@ Cox_raw <- coxph(Surv(followup_year,followup_year_plus_one,dead)~pm25_ensemble +
              mean_bmi + smoke_rate + hispanic + pct_blk +
              medhouseholdincome + medianhousevalue +
              poverty + education + popdensity + pct_owner_occ +
+             summer_tmmx + winter_tmmx + summer_rmax + winter_rmax +
              as.factor(year) + as.factor(region)
-            +strata(as.factor(entry_age_break))+strata(as.factor(sex))+strata(as.factor(race))+strata(as.factor(dual))
+             +strata(as.factor(entry_age_break))+strata(as.factor(sex))+strata(as.factor(race))+strata(as.factor(dual))
            , data=national_merged2016,
            ties = c("efron"),na.action = na.omit)
 Cox <- summary(Cox_raw)
@@ -35,6 +36,7 @@ gnm_raw<-gnm(dead~  pm25_ensemble +
                mean_bmi + smoke_rate + hispanic + pct_blk +
                medhouseholdincome + medianhousevalue +
                poverty + education + popdensity + pct_owner_occ +
+               summer_tmmx + winter_tmmx + summer_rmax + winter_rmax +
                as.factor(year) + as.factor(region)
                +offset(log(time_count)),
                eliminate= (as.factor(sex):as.factor(race):as.factor(dual):as.factor(entry_age_break):as.factor(followup_year)), 
@@ -160,7 +162,6 @@ matching.fun.dose.l1.caliper2 <- function(simulated.data,
 
 # Function to implement the matching under each strata
 par.match.noerrer<-function(a_i=a_i,data.list,GPS_mod=GPS_mod,delta_n=delta_n,scale=scale){
-   #matching_noerror_level <- NULL
    matching_noerror_level <- data.table(Reduce(rbind,mclapply(1:length(data.list),function(i,a_i=a_i,GPS_mod=GPS_mod,delta_n=delta_n,scale=scale){
     return(matching.fun.dose.l1.caliper2(simulated.data=data.list[[i]],GPS_mod=GPS_mod,a=a_i,delta_n=delta_n,scale=scale))
     },GPS_mod=GPS_mod,a_i=a_i,delta_n=delta_n,scale=scale,mc.cores=mc_cores)))

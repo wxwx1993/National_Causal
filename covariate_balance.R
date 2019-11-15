@@ -61,7 +61,6 @@ matching.fun.dose.l1.caliper2 <- function(simulated.data,
     dp <- simulated.data.subset[wm,]
   }else{dp <-data.frame(matrix(rep(NA,ncol(simulated.data)),nrow=1))}
   dp$pm25 <- a
-  #E.a <- apply(dp, 2, sum, na.rm = T)
   return(dp)
   gc()
 }
@@ -75,7 +74,6 @@ matching.fun.dose.l1.caliper_xgb <- function(simulated.data,
 {
   ## cosmetic changes only
   simulated.data[["treat"]] <- simulated.data[["pm25_ensemble"]]
-  #p.a <- dnorm(a,mean = predict(GPS_mod,simulated.data),sd=summary(GPS_mod)[["sigma"]])
   p.a <- dnorm(a,mean = predict(GPS_mod2,data.matrix(simulated.data[,c(4:19)])),
         sd=sd(simulated.data$pm25_ensemble-predict(GPS_mod2,data.matrix(simulated.data[,c(4:19)]))))
   
@@ -103,7 +101,6 @@ matching.fun.dose.l1.caliper_xgb <- function(simulated.data,
     dp <- simulated.data.subset[wm,]
   }else{dp <-data.frame(matrix(rep(NA,ncol(simulated.data)),nrow=1))}
   dp$pm25 <- a
-  #E.a <- apply(dp, 2, sum, na.rm = T)
   return(dp)
   gc()
 }

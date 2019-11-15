@@ -46,7 +46,7 @@ covariates<-subset(covariates[complete.cases(covariates) ,])
 covariates$year_fac <- as.factor(covariates$year)
 covariates$region <- as.factor(covariates$region)
 
-save(covariates,file="/nfs/home/X/xwu/shared_space/ci3_xwu/National_Causal/data2016_temp/balance/covariates.RData")
+save(covariates,file="./balance/covariates.RData")
 
 # Fit GPS model via Xgboost machine
 GPS_mod <-xgboost(data = data.matrix(covariates[,c(4:19)]), label = covariates$pm25_ensemble,nrounds=50)
@@ -57,7 +57,7 @@ covariates$GPS<-dnorm(covariates$pm25_ensemble,mean = predict(GPS_mod,data.matri
 Nm<-dnorm(covariates$pm25_ensemble,mean=mean(covariates$pm25_ensemble,na.rm=T),sd=sd(covariates$pm25_ensemble,na.rm=T))
 covariates$IPW<-Nm/(covariates$GPS)
 covariates<-covariates[,c("zip","year","IPW","GPS")]
-save(GPS_mod,mod_sd,feature_names,covariates,file="/nfs/home/X/xwu/shared_space/ci3_xwu/National_Causal/data2016_temp/covariates.RData")
+save(GPS_mod,mod_sd,feature_names,covariates,file="./covariates.RData")
 
 # Generate count data for each individual characteristics and follow-up year
 national_merged2016$time_count<-national_merged2016$followup_year_plus_one-national_merged2016$followup_year
@@ -71,18 +71,18 @@ colnames(aggregate_data)[8:9]<-c("dead","time_count")
 colnames(aggregate_data)[1:7]<-c("zip","year","sex","race","dual","entry_age_break","followup_year")
 aggregate_data<-subset(aggregate_data[complete.cases(aggregate_data) ,])
 
-save(aggregate_data,file="/nfs/home/X/xwu/shared_space/ci3_xwu/National_Causal/data2016_temp/aggregate_data.RData")
+save(aggregate_data,file="./aggregate_data.RData")
 
 
-load("/nfs/home/X/xwu/shared_space/ci3_xwu/National_Causal/data2016_temp/covariates.RData")
-load("//nfs/home/X/xwu/shared_space/ci3_xwu/National_Causal/data2016_temp/aggregate_data.RData")
+load("./covariates.RData")
+load("./aggregate_data.RData")
 aggregate_data<-merge(aggregate_data,covariates,by=c("zip","year"),all.x=T)
 
 aggregate_data.list <- split(aggregate_data,list(aggregate_data$sex,aggregate_data$race, aggregate_data$dual,aggregate_data$entry_age_break,aggregate_data$followup_year))
 aggregate_data.list<-aggregate_data.list[lapply(aggregate_data.list,nrow)>0]
 
 mclapply(aggregate_data.list,function(data){
-  write_fst(data,paste0("/nfs/home/X/xwu/shared_space/ci3_xwu/National_Causal/data2016_temp/FST_data/",
+  write_fst(data,paste0("./FST_data/",
                         data$sex[1],data$race[1], data$dual[1],data$entry_age_break[1],data$followup_year[1],".fst"))
 },mc.cores=16)
 
@@ -90,7 +90,7 @@ mclapply(aggregate_data.list,function(data){
 # For analyses, exclude year as a confounder
 
 # Fit GPS model via Xgboost machine
-load("/nfs/home/X/xwu/shared_space/ci3_xwu/National_Causal/data2016_temp/balance/covariates.RData")
+load("./balance/covariates.RData")
 
 GPS_mod <-xgboost(data = data.matrix(covariates[,c(4:18)]), label = covariates$pm25_ensemble,nrounds=50)
 mod_sd <- sd(covariates$pm25_ensemble-predict(GPS_mod,data.matrix(covariates[,c(4:18)])))
@@ -101,23 +101,23 @@ Nm<-dnorm(covariates$pm25_ensemble,mean=mean(covariates$pm25_ensemble,na.rm=T),s
 covariates$IPW<-Nm/(covariates$GPS)
 covariates<-covariates[,c("zip","year","IPW","GPS")]
 
-save(GPS_mod,mod_sd,feature_names,covariates,file="/nfs/home/X/xwu/shared_space/ci3_xwu/National_Causal/data2016_temp/covariates_noyear.RData")
+save(GPS_mod,mod_sd,feature_names,covariates,file="./covariates_noyear.RData")
 
-load("/nfs/home/X/xwu/shared_space/ci3_xwu/National_Causal/data2016_temp/covariates_noyear.RData")
-load("//nfs/home/X/xwu/shared_space/ci3_xwu/National_Causal/data2016_temp/aggregate_data.RData")
+load("./covariates_noyear.RData")
+load("./aggregate_data.RData")
 aggregate_data<-merge(aggregate_data,covariates,by=c("zip","year"),all.x=T)
 
 aggregate_data.list <- split(aggregate_data,list(aggregate_data$sex,aggregate_data$race, aggregate_data$dual,aggregate_data$entry_age_break,aggregate_data$followup_year))
 aggregate_data.list<-aggregate_data.list[lapply(aggregate_data.list,nrow)>0]
 
-dir.create(file.path("/nfs/home/X/xwu/shared_space/ci3_xwu/National_Causal/data2016_temp/FST_data_noyear"), showWarnings = FALSE)
+dir.create(file.path("./FST_data_noyear"), showWarnings = FALSE)
 mclapply(aggregate_data.list,function(data){
-  write_fst(data,paste0("/nfs/home/X/xwu/shared_space/ci3_xwu/National_Causal/data2016_temp/FST_data_noyear/",
+  write_fst(data,paste0("./FST_data_noyear/",
                         data$sex[1],data$race[1], data$dual[1],data$entry_age_break[1],data$followup_year[1],".fst"))
 },mc.cores=16)
 
 # For analyses, exclude meteorological variables as confounders
-load("/nfs/home/X/xwu/shared_space/ci3_xwu/National_Causal/data2016_temp/balance/covariates.RData")
+load("./balance/covariates.RData")
 
 GPS_mod <-xgboost(data = data.matrix(covariates[,c(4:13,18:19)]), label = covariates$pm25_ensemble,nrounds=50)
 mod_sd <- sd(covariates$pm25_ensemble-predict(GPS_mod,data.matrix(covariates[,c(4:13,18:19)])))
@@ -128,22 +128,22 @@ Nm<-dnorm(covariates$pm25_ensemble,mean=mean(covariates$pm25_ensemble,na.rm=T),s
 covariates$IPW<-Nm/(covariates$GPS)
 covariates<-covariates[,c("zip","year","IPW","GPS")]
 
-save(GPS_mod,mod_sd,feature_names,covariates,file="/nfs/home/X/xwu/shared_space/ci3_xwu/National_Causal/data2016_temp/covariates_notemp.RData")
+save(GPS_mod,mod_sd,feature_names,covariates,file="./covariates_notemp.RData")
 
-load("/nfs/home/X/xwu/shared_space/ci3_xwu/National_Causal/data2016_temp/covariates_notemp.RData")
-load("//nfs/home/X/xwu/shared_space/ci3_xwu/National_Causal/data2016_temp/aggregate_data.RData")
+load("./covariates_notemp.RData")
+load("./aggregate_data.RData")
 aggregate_data<-merge(aggregate_data,covariates,by=c("zip","year"),all.x=T)
 
 aggregate_data.list <- split(aggregate_data,list(aggregate_data$sex,aggregate_data$race, aggregate_data$dual,aggregate_data$entry_age_break,aggregate_data$followup_year))
 aggregate_data.list<-aggregate_data.list[lapply(aggregate_data.list,nrow)>0]
 
-dir.create(file.path("/nfs/home/X/xwu/shared_space/ci3_xwu/National_Causal/data2016_temp/FST_data_notemp"), showWarnings = FALSE)
+dir.create(file.path("./FST_data_notemp"), showWarnings = FALSE)
 mclapply(aggregate_data.list,function(data){
-  write_fst(data,paste0("/nfs/home/X/xwu/shared_space/ci3_xwu/National_Causal/data2016_temp/FST_data_notemp/",
+  write_fst(data,paste0("./FST_data_notemp/",
                         data$sex[1],data$race[1], data$dual[1],data$entry_age_break[1],data$followup_year[1],".fst"))
 },mc.cores=16)
 
 # Save the complete data
-write.foreign(national_merged2016, datafile="/nfs/home/X/xwu/shared_space/ci3_nsaph/XiaoWu/National_Causal/data2016_temp/national_merged2016.csv", 
-              codefile="/nfs/home/X/xwu/shared_space/ci3_nsaph/XiaoWu/National_Causal/data2016_temp/national_merged2016.sas",
+write.foreign(national_merged2016, datafile="./national_merged2016.csv", 
+              codefile="./national_merged2016.sas",
               package = c("SAS"))
