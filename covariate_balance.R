@@ -61,6 +61,7 @@ matching.fun.dose.l1.caliper2 <- function(simulated.data,
     dp <- simulated.data.subset[wm,]
   }else{dp <-data.frame(matrix(rep(NA,ncol(simulated.data)),nrow=1))}
   dp$pm25 <- a
+  #E.a <- apply(dp, 2, sum, na.rm = T)
   return(dp)
   gc()
 }
@@ -74,6 +75,7 @@ matching.fun.dose.l1.caliper_xgb <- function(simulated.data,
 {
   ## cosmetic changes only
   simulated.data[["treat"]] <- simulated.data[["pm25_ensemble"]]
+  #p.a <- dnorm(a,mean = predict(GPS_mod,simulated.data),sd=summary(GPS_mod)[["sigma"]])
   p.a <- dnorm(a,mean = predict(GPS_mod2,data.matrix(simulated.data[,c(4:19)])),
         sd=sd(simulated.data$pm25_ensemble-predict(GPS_mod2,data.matrix(simulated.data[,c(4:19)]))))
   
@@ -101,6 +103,7 @@ matching.fun.dose.l1.caliper_xgb <- function(simulated.data,
     dp <- simulated.data.subset[wm,]
   }else{dp <-data.frame(matrix(rep(NA,ncol(simulated.data)),nrow=1))}
   dp$pm25 <- a
+  #E.a <- apply(dp, 2, sum, na.rm = T)
   return(dp)
   gc()
 }
@@ -121,7 +124,26 @@ match_data2 <- subset(match_data_xgb[complete.cases(match_data_xgb) ,],  pm25_en
 save(covariates,match_data1,match_data2, file="./match_data2016_temp.RData")
 
 # Caculate absolute correlation for each covariates to assess covariate balance
-cor_weight<-c(abs(weightedCorr(weights=covariates$IPW,covariates$pm25_ensemble,covariates$year,method = c("spearman"))),
+cor_origin<-c(abs(polyserial(covariates$pm25_ensemble,covariates$year_fac)),
+              abs(polyserial(covariates$pm25_ensemble,covariates$region)),
+              abs(cor(covariates$pm25_ensemble,covariates$mean_bmi,method = c("spearman"))),
+              abs(cor(covariates$pm25_ensemble,covariates$smoke_rate,method = c("spearman"))),
+              abs(cor(covariates$pm25_ensemble,covariates$hispanic,method = c("spearman"))),
+              abs(cor(covariates$pm25_ensemble,covariates$pct_blk,method = c("spearman"))),
+              abs(cor(covariates$pm25_ensemble,covariates$medhouseholdincome,method = c("spearman"))),
+              abs(cor(covariates$pm25_ensemble,covariates$medianhousevalue,method = c("spearman"))),
+              abs(cor(covariates$pm25_ensemble,covariates$poverty,method = c("spearman"))),
+              abs(cor(covariates$pm25_ensemble,covariates$education,method = c("spearman"))),
+              abs(cor(covariates$pm25_ensemble,covariates$popdensity,method = c("spearman"))),
+              abs(cor(covariates$pm25_ensemble,covariates$pct_owner_occ,method = c("spearman"))),
+              abs(cor(covariates$pm25_ensemble,covariates$summer_tmmx,method = c("spearman"))),
+              abs(cor(covariates$pm25_ensemble,covariates$summer_rmax,method = c("spearman"))),
+              abs(cor(covariates$pm25_ensemble,covariates$winter_tmmx,method = c("spearman"))),
+              abs(cor(covariates$pm25_ensemble,covariates$winter_rmax,method = c("spearman")))
+)
+
+cor_weight<-c(abs(weightedCorr(weights=covariates$IPW,covariates$pm25_ensemble,covariates$year_fac,method = c("Polyserial"))),
+              abs(weightedCorr(weights=covariates$IPW,covariates$pm25_ensemble,covariates$region,method = c("Polyserial"))),
               abs(weightedCorr(weights=covariates$IPW,covariates$pm25_ensemble,covariates$mean_bmi,method = c("spearman"))),
               abs(weightedCorr(weights=covariates$IPW,covariates$pm25_ensemble,covariates$smoke_rate,method = c("spearman"))),
               abs(weightedCorr(weights=covariates$IPW,covariates$pm25_ensemble,covariates$hispanic,method = c("spearman"))),
@@ -131,22 +153,33 @@ cor_weight<-c(abs(weightedCorr(weights=covariates$IPW,covariates$pm25_ensemble,c
               abs(weightedCorr(weights=covariates$IPW,covariates$pm25_ensemble,covariates$poverty,method = c("spearman"))),
               abs(weightedCorr(weights=covariates$IPW,covariates$pm25_ensemble,covariates$education,method = c("spearman"))),
               abs(weightedCorr(weights=covariates$IPW,covariates$pm25_ensemble,covariates$popdensity,method = c("spearman"))),
-              abs(weightedCorr(weights=covariates$IPW,covariates$pm25_ensemble,covariates$pct_owner_occ,method = c("spearman"))))
+              abs(weightedCorr(weights=covariates$IPW,covariates$pm25_ensemble,covariates$pct_owner_occ,method = c("spearman"))),
+              abs(weightedCorr(weights=covariates$IPW,covariates$pm25_ensemble,covariates$summer_tmmx,method = c("spearman"))),
+              abs(weightedCorr(weights=covariates$IPW,covariates$pm25_ensemble,covariates$summer_rmax,method = c("spearman"))),
+              abs(weightedCorr(weights=covariates$IPW,covariates$pm25_ensemble,covariates$winter_tmmx,method = c("spearman"))),
+              abs(weightedCorr(weights=covariates$IPW,covariates$pm25_ensemble,covariates$winter_rmax,method = c("spearman"))))
 
 
-cor_weight2<-c(abs(weightedCorr(weights=covariates$IPW2,covariates$pm25_ensemble,covariates$year,method = c("spearman"))),
-              abs(weightedCorr(weights=covariates$IPW2,covariates$pm25_ensemble,covariates$mean_bmi,method = c("spearman"))),
-              abs(weightedCorr(weights=covariates$IPW2,covariates$pm25_ensemble,covariates$smoke_rate,method = c("spearman"))),
-              abs(weightedCorr(weights=covariates$IPW2,covariates$pm25_ensemble,covariates$hispanic,method = c("spearman"))),
-              abs(weightedCorr(weights=covariates$IPW2,covariates$pm25_ensemble,covariates$pct_blk,method = c("spearman"))),
-              abs(weightedCorr(weights=covariates$IPW2,covariates$pm25_ensemble,covariates$medhouseholdincome,method = c("spearman"))),
-              abs(weightedCorr(weights=covariates$IPW2,covariates$pm25_ensemble,covariates$medianhousevalue,method = c("spearman"))),
-              abs(weightedCorr(weights=covariates$IPW2,covariates$pm25_ensemble,covariates$poverty,method = c("spearman"))),
-              abs(weightedCorr(weights=covariates$IPW2,covariates$pm25_ensemble,covariates$education,method = c("spearman"))),
-              abs(weightedCorr(weights=covariates$IPW2,covariates$pm25_ensemble,covariates$popdensity,method = c("spearman"))),
-              abs(weightedCorr(weights=covariates$IPW2,covariates$pm25_ensemble,covariates$pct_owner_occ,method = c("spearman"))))
+cor_weight2<-c(abs(weightedCorr(weights=covariates$IPW2,covariates$pm25_ensemble,covariates$year_fac,method = c("Polyserial"))),
+               abs(weightedCorr(weights=covariates$IPW2,covariates$pm25_ensemble,covariates$region,method = c("Polyserial"))),
+               abs(weightedCorr(weights=covariates$IPW2,covariates$pm25_ensemble,covariates$mean_bmi,method = c("spearman"))),
+               abs(weightedCorr(weights=covariates$IPW2,covariates$pm25_ensemble,covariates$smoke_rate,method = c("spearman"))),
+               abs(weightedCorr(weights=covariates$IPW2,covariates$pm25_ensemble,covariates$hispanic,method = c("spearman"))),
+               abs(weightedCorr(weights=covariates$IPW2,covariates$pm25_ensemble,covariates$pct_blk,method = c("spearman"))),
+               abs(weightedCorr(weights=covariates$IPW2,covariates$pm25_ensemble,covariates$medhouseholdincome,method = c("spearman"))),
+               abs(weightedCorr(weights=covariates$IPW2,covariates$pm25_ensemble,covariates$medianhousevalue,method = c("spearman"))),
+               abs(weightedCorr(weights=covariates$IPW2,covariates$pm25_ensemble,covariates$poverty,method = c("spearman"))),
+               abs(weightedCorr(weights=covariates$IPW2,covariates$pm25_ensemble,covariates$education,method = c("spearman"))),
+               abs(weightedCorr(weights=covariates$IPW2,covariates$pm25_ensemble,covariates$popdensity,method = c("spearman"))),
+               abs(weightedCorr(weights=covariates$IPW2,covariates$pm25_ensemble,covariates$pct_owner_occ,method = c("spearman"))),
+               abs(weightedCorr(weights=covariates$IPW2,covariates$pm25_ensemble,covariates$summer_tmmx,method = c("spearman"))),
+               abs(weightedCorr(weights=covariates$IPW2,covariates$pm25_ensemble,covariates$summer_rmax,method = c("spearman"))),
+               abs(weightedCorr(weights=covariates$IPW2,covariates$pm25_ensemble,covariates$winter_tmmx,method = c("spearman"))),
+               abs(weightedCorr(weights=covariates$IPW2,covariates$pm25_ensemble,covariates$winter_rmax,method = c("spearman"))))
 
-cor_matched<-c(abs(cor(match_data1$pm25_ensemble,match_data1$year,method = c("spearman"))),
+
+cor_matched<-c(abs(polyserial(match_data1$pm25_ensemble,match_data1$year_fac)),
+               abs(polyserial(match_data1$pm25_ensemble,match_data1$region)),
                abs(cor(match_data1$pm25_ensemble,match_data1$mean_bmi,method = c("spearman"))),
                abs(cor(match_data1$pm25_ensemble,match_data1$smoke_rate,method = c("spearman"))),
                abs(cor(match_data1$pm25_ensemble,match_data1$hispanic,method = c("spearman"))),
@@ -156,19 +189,29 @@ cor_matched<-c(abs(cor(match_data1$pm25_ensemble,match_data1$year,method = c("sp
                abs(cor(match_data1$pm25_ensemble,match_data1$poverty,method = c("spearman"))),
                abs(cor(match_data1$pm25_ensemble,match_data1$education,method = c("spearman"))),
                abs(cor(match_data1$pm25_ensemble,match_data1$popdensity,method = c("spearman"))),
-               abs(cor(match_data1$pm25_ensemble,match_data1$pct_owner_occ,method = c("spearman"))))
+               abs(cor(match_data1$pm25_ensemble,match_data1$pct_owner_occ,method = c("spearman"))),
+               abs(cor(match_data1$pm25_ensemble,match_data1$summer_tmmx,method = c("spearman"))),
+               abs(cor(match_data1$pm25_ensemble,match_data1$summer_rmax,method = c("spearman"))),
+               abs(cor(match_data1$pm25_ensemble,match_data1$winter_tmmx,method = c("spearman"))),
+               abs(cor(match_data1$pm25_ensemble,match_data1$winter_rmax,method = c("spearman")))
 
-cor_matched2<-c(abs(cor(match_data2$pm25_ensemble,match_data2$year,method = c("spearman"))),
-               abs(cor(match_data2$pm25_ensemble,match_data2$mean_bmi,method = c("spearman"))),
-               abs(cor(match_data2$pm25_ensemble,match_data2$smoke_rate,method = c("spearman"))),
-               abs(cor(match_data2$pm25_ensemble,match_data2$hispanic,method = c("spearman"))),
-               abs(cor(match_data2$pm25_ensemble,match_data2$pct_blk,method = c("spearman"))),
-               abs(cor(match_data2$pm25_ensemble,match_data2$medhouseholdincome,method = c("spearman"))),
-               abs(cor(match_data2$pm25_ensemble,match_data2$medianhousevalue,method = c("spearman"))),
-               abs(cor(match_data2$pm25_ensemble,match_data2$poverty,method = c("spearman"))),
-               abs(cor(match_data2$pm25_ensemble,match_data2$education,method = c("spearman"))),
-               abs(cor(match_data2$pm25_ensemble,match_data2$popdensity,method = c("spearman"))),
-               abs(cor(match_data2$pm25_ensemble,match_data2$pct_owner_occ,method = c("spearman"))))
+cor_matched2<-c(abs(polyserial(match_data2$pm25_ensemble,match_data2$year_fac)),
+                abs(polyserial(match_data2$pm25_ensemble,match_data2$region)),
+                abs(cor(match_data2$pm25_ensemble,match_data2$mean_bmi,method = c("spearman"))),
+                abs(cor(match_data2$pm25_ensemble,match_data2$smoke_rate,method = c("spearman"))),
+                abs(cor(match_data2$pm25_ensemble,match_data2$hispanic,method = c("spearman"))),
+                abs(cor(match_data2$pm25_ensemble,match_data2$pct_blk,method = c("spearman"))),
+                abs(cor(match_data2$pm25_ensemble,match_data2$medhouseholdincome,method = c("spearman"))),
+                abs(cor(match_data2$pm25_ensemble,match_data2$medianhousevalue,method = c("spearman"))),
+                abs(cor(match_data2$pm25_ensemble,match_data2$poverty,method = c("spearman"))),
+                abs(cor(match_data2$pm25_ensemble,match_data2$education,method = c("spearman"))),
+                abs(cor(match_data2$pm25_ensemble,match_data2$popdensity,method = c("spearman"))),
+                abs(cor(match_data2$pm25_ensemble,match_data2$pct_owner_occ,method = c("spearman"))),
+                abs(cor(match_data2$pm25_ensemble,match_data2$summer_tmmx,method = c("spearman"))),
+                abs(cor(match_data2$pm25_ensemble,match_data2$summer_rmax,method = c("spearman"))),
+                abs(cor(match_data2$pm25_ensemble,match_data2$winter_tmmx,method = c("spearman"))),
+                abs(cor(match_data2$pm25_ensemble,match_data2$winter_rmax,method = c("spearman")))
+)
 
 save(cor_origin,cor_weight,cor_weight2,cor_matched,cor_matched2,file="./correlations.RData")
 
