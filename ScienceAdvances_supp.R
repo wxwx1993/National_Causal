@@ -11,7 +11,7 @@ balance <- data.frame(matrix(NA,nrow=16*3,ncol = 0))
 balance$Covariates <- rep(1:16,3)
 balance$Correlation <- c(sort(cor_origin),cor_matched2[order],cor_weight2[order])
 balance$covariates_name <- rep(c("Year","Region","Avg BMI","% Ever Smoker","% Hispanic","% Black","Med Hhold Inc","Med Hm Val",
-                                 "% < Poverty","% < High School Edu","Popn Dens","% Hm Owner Occ","Summer Temperature","Winter Temperature","Summer Humidity","Winter Humidity")[order],3)
+                                 "% < Poverty","% < High School Edu","Popn Dens","% Hm Owner Occ","Summer Temperature","Summer Humidity","Winter Temperature","Winter Humidity")[order],3)
 balance$Implementations <- c(rep("unadjusted",16), rep("matching",16), rep("weighting",16))
 balance$Implementations <- factor(balance$Implementations, levels = c("unadjusted", "matching", "weighting"))
 
@@ -19,7 +19,7 @@ balance$Implementations <- factor(balance$Implementations, levels = c("unadjuste
 p1 <- ggplot(balance, aes(x=Correlation, y=Covariates, colour=Implementations)) + 
   scale_y_discrete(limit = 1:16,
                    labels = c("Calender Year","Census Region","Mean BMI","% Ever Smoked","% Hispanic","% Black","Median Household Income","Median Home Value",
-                              "% Below Poverty Level","% Below High School Education","Population Density","% Owner-occupied Housing","Summer Temperature","Winter Temperature","Summer Humidity","Winter Humidity")[order]) + 
+                              "% Below Poverty Level","% Below High School Education","Population Density","% Owner-occupied Housing","Summer Temperature","Summer Humidity","Winter Temperature","Winter Humidity")[order]) + 
   geom_point() +
   geom_path() +
   geom_vline(xintercept = 0.1) +
@@ -37,7 +37,7 @@ balance$Covariates <- rep(1:16,3)
 balance$Correlation <- c(sort(cor_origin),cor_matched2[order],cor_weight2[order])
 
 balance$covariates_name <- rep(c("Year","Region","Avg BMI","% Ever Smoker","% Hispanic","% Black","Med Hhold Inc","Med Hm Val",
-                                 "% < Poverty","% < High School Edu","Popn Dens","% Hm Owner Occ","Summer Temperature","Winter Temperature","Summer Humidity","Winter Humidity")[order],3)
+                                 "% < Poverty","% < High School Edu","Popn Dens","% Hm Owner Occ","Summer Temperature","Summer Humidity","Winter Temperature","Winter Humidity")[order],3)
 balance$Implementations <- c(rep("unadjusted",16), rep("matching",16), rep("weighting",16))
 balance$Implementations <- factor(balance$Implementations, levels = c("unadjusted", "matching", "weighting"))
 
@@ -45,7 +45,7 @@ balance$Implementations <- factor(balance$Implementations, levels = c("unadjuste
 p2<- ggplot(balance, aes(x=Correlation, y=Covariates, colour=Implementations)) + 
   scale_y_discrete(limit = 1:16,
                    labels = c("Calender Year","Census Region","Mean BMI","% Ever Smoked","% Hispanic","% Black","Median Household Income","Median Home Value",
-                              "% Below Poverty Level","% Below High School Education","Population Density","% Owner-occupied Housing","Summer Temperature","Winter Temperature","Summer Humidity","Winter Humidity")[order])+
+                              "% Below Poverty Level","% Below High School Education","Population Density","% Owner-occupied Housing","Summer Temperature","Summer Humidity","Winter Temperature","Winter Humidity")[order])+
 
   geom_point() +
   geom_path() +
@@ -68,7 +68,7 @@ balance <- data.frame(matrix(NA,nrow=16*3,ncol = 0))
 balance$Covariates <- rep(1:16,3)
 balance$Correlation <- c(sort(cor_origin),cor_matched2[order],cor_weight2[order])
 balance$covariates_name <- rep(c("Year","Region","Avg BMI","% Ever Smoker","% Hispanic","% Black","Med Hhold Inc","Med Hm Val",
-                                 "% < Poverty","% < High School Edu","Popn Dens","% Hm Owner Occ","Summer Temperature","Winter Temperature","Summer Humidity","Winter Humidity")[order],3)
+                                 "% < Poverty","% < High School Edu","Popn Dens","% Hm Owner Occ","Summer Temperature","Summer Humidity","Winter Temperature","Winter Humidity")[order],3)
 balance$Implementations <- c(rep("unadjusted",16), rep("matching",16), rep("weighting",16))
 balance$Implementations <- factor(balance$Implementations, levels = c("unadjusted", "matching", "weighting"))
 
@@ -76,7 +76,7 @@ balance$Implementations <- factor(balance$Implementations, levels = c("unadjuste
 p1 <- ggplot(balance, aes(x=Correlation, y=Covariates, colour=Implementations)) + 
   scale_y_discrete(limit = 1:16,
                    labels = c("Calender Year","Census Region","Mean BMI","% Ever Smoked","% Hispanic","% Black","Median Household Income","Median Home Value",
-                              "% Below Poverty Level","% Below High School Education","Population Density","% Owner-occupied Housing","Summer Temperature","Winter Temperature","Summer Humidity","Winter Humidity")[order]) + 
+                              "% Below Poverty Level","% Below High School Education","Population Density","% Owner-occupied Housing","Summer Temperature","Summer Humidity","Winter Temperature","Winter Humidity")[order]) + 
   geom_point() +
   geom_path() +
   geom_vline(xintercept = 0.1) +
@@ -94,17 +94,15 @@ balance$Covariates <- rep(1:16,3)
 balance$Correlation <- c(sort(cor_origin),cor_matched2[order],cor_weight2[order])
 
 balance$covariates_name <- rep(c("Year","Region","Avg BMI","% Ever Smoker","% Hispanic","% Black","Med Hhold Inc","Med Hm Val",
-                                 "% < Poverty","% < High School Edu","Popn Dens","% Hm Owner Occ","Summer Temperature","Winter Temperature","Summer Humidity","Winter Humidity")[order],3)
-#balance <- balance[order(balance$correlations),]
+                                 "% < Poverty","% < High School Edu","Popn Dens","% Hm Owner Occ","Summer Temperature","Summer Humidity","Winter Temperature","Winter Humidity")[order],3)
 balance$Implementations <- c(rep("unadjusted",16), rep("matching",16), rep("weighting",16))
 balance$Implementations <- factor(balance$Implementations, levels = c("unadjusted", "matching", "weighting"))
 
-#balance$covariates <- factor(balance$covariates, as.character(balance$covariates))
 
 p2<- ggplot(balance, aes(x=Correlation, y=Covariates, colour=Implementations)) + 
   scale_y_discrete(limit = 1:16,
                    labels = c("Calender Year","Census Region","Mean BMI","% Ever Smoked","% Hispanic","% Black","Median Household Income","Median Home Value",
-                              "% Below Poverty Level","% Below High School Education","Population Density","% Owner-occupied Housing","Summer Temperature","Winter Temperature","Summer Humidity","Winter Humidity")[order])+
+                              "% Below Poverty Level","% Below High School Education","Population Density","% Owner-occupied Housing","Summer Temperature","Summer Humidity","Winter Temperature","Winter Humidity")[order])+
 
   geom_point() +
   geom_path() +
@@ -127,7 +125,7 @@ balance <- data.frame(matrix(NA,nrow=16*3,ncol = 0))
 balance$Covariates <- rep(1:16,3)
 balance$Correlation <- c(sort(cor_origin),cor_matched2[order],cor_weight2[order])
 balance$covariates_name <- rep(c("Year","Region","Avg BMI","% Ever Smoker","% Hispanic","% Black","Med Hhold Inc","Med Hm Val",
-                                 "% < Poverty","% < High School Edu","Popn Dens","% Hm Owner Occ","Summer Temperature","Winter Temperature","Summer Humidity","Winter Humidity")[order],3)
+                                 "% < Poverty","% < High School Edu","Popn Dens","% Hm Owner Occ","Summer Temperature","Summer Humidity","Winter Temperature","Winter Humidity")[order],3)
 balance$Implementations <- c(rep("unadjusted",16), rep("matching",16), rep("weighting",16))
 balance$Implementations <- factor(balance$Implementations, levels = c("unadjusted", "matching", "weighting"))
 
@@ -135,7 +133,7 @@ balance$Implementations <- factor(balance$Implementations, levels = c("unadjuste
 p1 <- ggplot(balance, aes(x=Correlation, y=Covariates, colour=Implementations)) + 
   scale_y_discrete(limit = 1:16,
                    labels = c("Calender Year","Census Region","Mean BMI","% Ever Smoked","% Hispanic","% Black","Median Household Income","Median Home Value",
-                              "% Below Poverty Level","% Below High School Education","Population Density","% Owner-occupied Housing","Summer Temperature","Winter Temperature","Summer Humidity","Winter Humidity")[order]) + 
+                              "% Below Poverty Level","% Below High School Education","Population Density","% Owner-occupied Housing","Summer Temperature","Summer Humidity","Winter Temperature","Winter Humidity")[order]) + 
   geom_point() +
   geom_path() +
   geom_vline(xintercept = 0.1) +
@@ -153,7 +151,7 @@ balance$Covariates <- rep(1:16,3)
 balance$Correlation <- c(sort(cor_origin),cor_matched2[order],cor_weight2[order])
 
 balance$covariates_name <- rep(c("Year","Region","Avg BMI","% Ever Smoker","% Hispanic","% Black","Med Hhold Inc","Med Hm Val",
-                                 "% < Poverty","% < High School Edu","Popn Dens","% Hm Owner Occ","Summer Temperature","Winter Temperature","Summer Humidity","Winter Humidity")[order],3)
+                                 "% < Poverty","% < High School Edu","Popn Dens","% Hm Owner Occ","Summer Temperature","Summer Humidity","Winter Temperature","Winter Humidity")[order],3)
 
 balance$Implementations <- c(rep("unadjusted",16), rep("matching",16), rep("weighting",16))
 balance$Implementations <- factor(balance$Implementations, levels = c("unadjusted", "matching", "weighting"))
@@ -162,7 +160,7 @@ balance$Implementations <- factor(balance$Implementations, levels = c("unadjuste
 p2<- ggplot(balance, aes(x=Correlation, y=Covariates, colour=Implementations)) + 
   scale_y_discrete(limit = 1:16,
                    labels = c("Calender Year","Census Region","Mean BMI","% Ever Smoked","% Hispanic","% Black","Median Household Income","Median Home Value",
-                              "% Below Poverty Level","% Below High School Education","Population Density","% Owner-occupied Housing","Summer Temperature","Winter Temperature","Summer Humidity","Winter Humidity")[order])+
+                              "% Below Poverty Level","% Below High School Education","Population Density","% Owner-occupied Housing","Summer Temperature","Summer Humidity","Winter Temperature","Winter Humidity")[order])+
 
   geom_point() +
   geom_path() +
@@ -185,7 +183,7 @@ balance <- data.frame(matrix(NA,nrow=16*3,ncol = 0))
 balance$Covariates <- rep(1:16,3)
 balance$Correlation <- c(sort(cor_origin),cor_matched2[order],cor_weight2[order])
 balance$covariates_name <- rep(c("Year","Region","Avg BMI","% Ever Smoker","% Hispanic","% Black","Med Hhold Inc","Med Hm Val",
-                                 "% < Poverty","% < High School Edu","Popn Dens","% Hm Owner Occ","Summer Temperature","Winter Temperature","Summer Humidity","Winter Humidity")[order],3)
+                                 "% < Poverty","% < High School Edu","Popn Dens","% Hm Owner Occ","Summer Temperature","Summer Humidity","Winter Temperature","Winter Humidity")[order],3)
 balance$Implementations <- c(rep("unadjusted",16), rep("matching",16), rep("weighting",16))
 balance$Implementations <- factor(balance$Implementations, levels = c("unadjusted", "matching", "weighting"))
 
@@ -193,7 +191,7 @@ balance$Implementations <- factor(balance$Implementations, levels = c("unadjuste
 p1 <- ggplot(balance, aes(x=Correlation, y=Covariates, colour=Implementations)) + 
   scale_y_discrete(limit = 1:16,
                    labels = c("Calender Year","Census Region","Mean BMI","% Ever Smoked","% Hispanic","% Black","Median Household Income","Median Home Value",
-                              "% Below Poverty Level","% Below High School Education","Population Density","% Owner-occupied Housing","Summer Temperature","Winter Temperature","Summer Humidity","Winter Humidity")[order]) + 
+                              "% Below Poverty Level","% Below High School Education","Population Density","% Owner-occupied Housing","Summer Temperature","Summer Humidity","Winter Temperature","Winter Humidity")[order]) + 
   geom_point() +
   geom_path() +
   geom_vline(xintercept = 0.1) +
@@ -211,7 +209,7 @@ balance$Covariates <- rep(1:16,3)
 balance$Correlation <- c(sort(cor_origin),cor_matched2[order],cor_weight2[order])
 
 balance$covariates_name <- rep(c("Year","Region","Avg BMI","% Ever Smoker","% Hispanic","% Black","Med Hhold Inc","Med Hm Val",
-                                 "% < Poverty","% < High School Edu","Popn Dens","% Hm Owner Occ","Summer Temperature","Winter Temperature","Summer Humidity","Winter Humidity")[order],3)
+                                 "% < Poverty","% < High School Edu","Popn Dens","% Hm Owner Occ","Summer Temperature","Summer Humidity","Winter Temperature","Winter Humidity")[order],3)
 balance$Implementations <- c(rep("unadjusted",16), rep("matching",16), rep("weighting",16))
 balance$Implementations <- factor(balance$Implementations, levels = c("unadjusted", "matching", "weighting"))
 
@@ -219,7 +217,7 @@ balance$Implementations <- factor(balance$Implementations, levels = c("unadjuste
 p2<- ggplot(balance, aes(x=Correlation, y=Covariates, colour=Implementations)) + 
   scale_y_discrete(limit = 1:16,
                    labels = c("Calender Year","Census Region","Mean BMI","% Ever Smoked","% Hispanic","% Black","Median Household Income","Median Home Value",
-                              "% Below Poverty Level","% Below High School Education","Population Density","% Owner-occupied Housing","Summer Temperature","Winter Temperature","Summer Humidity","Winter Humidity")[order])+
+                              "% Below Poverty Level","% Below High School Education","Population Density","% Owner-occupied Housing","Summer Temperature","Summer Humidity","Winter Temperature","Winter Humidity")[order])+
 
   geom_point() +
   geom_path() +
@@ -247,7 +245,6 @@ data <- data.frame(method = c(rep(c("Cox", "Poisson", "Matching", "Weighting", "
                    )/100+1,
                    Methods = c(1:5,1:5),
                    type = c(rep("Adjust for Year (2012)",5),rep("Low level",5)))
-#data$method <- factor(data$method, as.character(data$method))
 bracketsGrob <- function(...){ 
   l <- list(...) 
   e <- new.env() 
@@ -262,8 +259,6 @@ pdf("HR_sep2012.pdf",width = 20, height = 8.5)
 
 p1 <- ggplot(data[1:5,], aes(x=Methods, y=HR, colour= type),size= 5) + 
   ylab("Hazard Ratios (%)") +
-  #scale_x_discrete(limit = 1:5,
-  #                 labels = c("Cox Regression", "Poisson Regression", "Matching", "Regression Adjustment", "Weighting")) + 
   geom_point(aes(size = 1)) +
   geom_errorbar(aes(ymin=lower_CI, ymax=upper_CI), width=.2,size=1) +
   geom_vline(xintercept = 2.5, linetype="dashed", size=0.8)  +
@@ -304,13 +299,13 @@ dev.off()
 
 
 
-load("~/Dropbox/National_Causal/boots/2012_temp/covariates2012_temp.RData")
+load("./2012_temp/covariates2012_temp.RData")
 covariates2012 = covariates
-load("~/Dropbox/National_Causal/boots/2016_temp/covariates2016_temp.RData")
+load("./boots/2016_temp/covariates2016_temp.RData")
 covariates2016 = covariates
-load("~/Dropbox/National_Causal/boots/2016_temp_low/covariates2016_temp_low.RData")
+load("./boots/2016_temp_low/covariates2016_temp_low.RData")
 covariates2016_low = covariates
-load("~/Dropbox/National_Causal/boots/2012_temp_low/covariates2012_temp_low.RData")
+load("./boots/2012_temp_low/covariates2012_temp_low.RData")
 covariates2012_low = covariates
 
 covariates2012$Cohort <- 'Years: 2000-2012'
