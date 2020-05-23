@@ -1,5 +1,5 @@
 # National Causal Studies
-This is the data repository for public available code and data to reproduce analyses in "Evaluating the Potential Causal Impact of Long-term Exposure to Fine Particulate Matter on Mortality Among the Elderly."
+This is the data repository for public available code and data to reproduce analyses in "Evaluating the Impact of Long-term Exposure to Fine Particulate Matter on Mortality Among the Elderly."
 
 <b>Code: </b><br>
 [`data_process.R`](https://github.com/wxwx1993/National_Causal/blob/master/data_process.R) includes the code to extract all necessary data and prepocess data for statistical analyses.
