@@ -19,3 +19,5 @@ All data needed to evaluate the conclusions in the paper are present in the pape
 
 <b>Terms of Use:</b><br>
 Authors/funders retain copyright (where applicable) of code on this Github repo and the article. Anyone who wishes to share, reuse, remix, or adapt this material must obtain permission from the corresponding author. By using the contents on this Github repo and the article, you agree to cite our paper.
+
+Wu, X., Braun, D., Schwartz, J., Kioumourtzoglou, M.A. and Dominici, F., 2020. Evaluating the Impact of Long-term Exposure to Fine Particulate Matter on Mortality Among the Elderly. *Provisionally Accepted*.
