@@ -26,6 +26,6 @@ X. Wu, D. Braun, J. Schwartz, M. A. Kioumourtzoglou, F. Dominici, Evaluating the
 * Email: fdominic@hsph.harvard.edu
 * Email: wuxiao@g.harvard.edu
 
-<b>Acknowledgments<b>
+<b>Acknowledgments<b><br>
 
 We appreciate the work of M. Benjamin Sabath, and Yaguang Wei for generating and processing the estimates of PM2.5 exposure. We would like to thank Lena Goodwin for editorial assistance in the preparation of this manuscript.
