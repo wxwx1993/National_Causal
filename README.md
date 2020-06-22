@@ -14,6 +14,9 @@ This is the data repository for publicly available code and data to conduct anal
 
 [`Bootstrap`](https://github.com/wxwx1993/National_Causal/tree/master/Bootstrap) contains the code to calculate the Bootstrapped Confidence Intervals for all five statistical models.
 
+<b>Additional Data Source: </b><br>
+[`Perparation of Data and Statisical Analysis`](https://github.com/NSAPH/National-Casual-Analysis) includes code covering the creation of the data set used for anaylsis.
+
 <b>Data: </b><br>
 All data needed to evaluate the conclusions in the paper are present in the paper and/or the Supplementary Materials. Medicare patient individual-level data are stored at a Level-3 secured data platform on Research Computing Environment, supported by the Institute for Quantitative Social Science in the Faculty of Arts and Sciences at Harvard University. Those interested in the original data can contact the corresponding author.
 
