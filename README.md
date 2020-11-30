@@ -2,11 +2,11 @@
 This is the data repository for publicly available code and data to conduct analyses in the paper titled "Evaluating the Impact of Long-term Exposure to Fine Particulate Matter on Mortality Among the Elderly." This paper provides a useful statistical causal inference framework to evaluate potential causal relationships under a set of explicit causal inference assumptions in environmental epidemiological studies.
 
 <b>Code: </b><br>
-[`data_process.R`](https://github.com/wxwx1993/National_Causal/blob/master/data_process.R) includes the code to extract all necessary data and prepocess data for statistical analyses.
+[`data_process.R`](https://github.com/wxwx1993/National_Causal/blob/master/data_process.R) includes the code to extract all necessary data and preprocess data for statistical analyses.
 
-[`statistical_models.R`](https://github.com/wxwx1993/National_Causal/blob/master/statistical_models.R) includes the code to implement all five statistical models, including two tranditional regression methods (i.e., Cox proportional hazard model and Cox-equvalent conditional Poisson model), and three causal inference methods (i.e., adjustment, weighting and matching by genealized propensity score). [`Cox_model.sas`](https://github.com/wxwx1993/National_Causal/blob/master/Cox_model.sas) include the SAS code to implement Cox proportional hazard model that provide a benchmark to the R code.
+[`statistical_models.R`](https://github.com/wxwx1993/National_Causal/blob/master/statistical_models.R) includes the code to implement all five statistical models, including two traditional regression methods (i.e., Cox proportional hazard model and Cox-equivalent conditional Poisson model), and three causal inference methods (i.e., adjustment, weighting and matching by generalized propensity score). [`Cox_model.sas`](https://github.com/wxwx1993/National_Causal/blob/master/Cox_model.sas) include the SAS code to implement Cox proportional hazard model that provide a benchmark to the R code.
 
-[`covariate_balance.R`](https://github.com/wxwx1993/National_Causal/blob/master/covariate_balance.R) includes the code to assess covariate balance for two causal inference methods (i.e., weighting and matching by genealized propensity score).
+[`covariate_balance.R`](https://github.com/wxwx1993/National_Causal/blob/master/covariate_balance.R) includes the code to assess covariate balance for two causal inference methods (i.e., weighting and matching by generalized propensity score).
 
 [`death_saved.R`](https://github.com/wxwx1993/National_Causal/blob/master/death_saved.R) includes the code to calculate the total number of deaths that would be avoided among the elderly per decade if all areas were in compliance with the current World Health Organization (WHO) guidelines (i.e., 10 μg/m3 annual PM2.5 exposure).
 
