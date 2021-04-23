@@ -124,6 +124,8 @@ match_data <- rbindlist(mclapply(a.vals + delta_n/2,
                                  delta_n = delta_n,
                                  scale = 1,
                                  mc.cores = 8))
+                 
+## Remove lower and higher 1% of data to avoid boundary ill-behaviors
 match_data1 <- subset(match_data[complete.cases(match_data), ],
                       pm25_ensemble < quantile(covariates$pm25_ensemble, 0.99) & 
                         pm25_ensemble > quantile(covariates$pm25_ensemble, 0.01))
@@ -135,6 +137,8 @@ match_data_xgb <- rbindlist(mclapply(a.vals + delta_n/2,
                                      delta_n = delta_n,
                                      scale = 1,
                                      mc.cores = 8))
+
+## Remove lower and higher 1% of data to avoid boundary ill-behaviors
 match_data2 <- subset(match_data_xgb[complete.cases(match_data_xgb), ],
                       pm25_ensemble < quantile(covariates$pm25_ensemble, 0.99) &
                         pm25_ensemble > quantile(covariates$pm25_ensemble, 0.01))
