@@ -226,15 +226,7 @@ matching_gnm2 <- summary(gnm(dead ~ pm25_ensemble+offset(log(time_count)),
                              data = matching2,
                              family = poisson(link = "log")))
 
-matching_gnm <- summary(gnm(dead ~ pm25_ensemble+offset(log(time_count)),
-                            eliminate = (as.factor(sex):as.factor(race):as.factor(dual):as.factor(entry_age_break):as.factor(followup_year)),
-                            data = subset(matching2, pm25_ensemble > quantile(matching2$pm25_ensemble, 0.01) &
-                                            pm25_ensemble < quantile(matching2$pm25_ensemble, 0.99)),
-                            family = poisson(link = "log")))
-#exp(10*matching_gnm$coefficients[1])
-#exp(10*matching_gnm2$coefficients[1])
-
-save(matching2, matching_gnm, matching_gnm2, file = paste0(dir_out, "Matching.RData"))
+save(matching2, matching_gnm2, file = paste0(dir_out, "Matching.RData"))
 
 
 
