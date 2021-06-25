@@ -26,6 +26,9 @@ All data needed to evaluate the conclusions in the paper are present in the pape
 All the analyses are run on  
 R version 3.5.1 (2018-07-02) -- "Feather Spray"  
 Copyright (C) 2018 The R Foundation for Statistical Computing  
+or  
+SAS software version 9.4  
+Copyright © SAS Institute Inc.  
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 <b>Terms of Use:</b><br>
