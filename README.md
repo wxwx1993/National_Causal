@@ -35,7 +35,7 @@ X. Wu, D. Braun, J. Schwartz, M. A. Kioumourtzoglou, F. Dominici, Evaluating the
 
 <b>Contact Us: </b><br>
 * Email: fdominic@hsph.harvard.edu
-* Email: wuxiao@g.harvard.edu
+* Email: xiw321@mail.harvard.edu
 
 <b>Acknowledgments</b><br>
 
