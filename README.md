@@ -23,6 +23,11 @@ This is the data repository for publicly available code and data to conduct anal
 <b>Data: </b><br>
 All data needed to evaluate the conclusions in the paper are present in the paper and/or the Supplementary Materials. Medicare patient individual-level data are stored at a Level-3 secured data platform on Research Computing Environment, supported by the Institute for Quantitative Social Science in the Faculty of Arts and Sciences at Harvard University. Those interested in the original data can contact the corresponding author.
 
+All the analyses are run on
+R version 3.5.1 (2018-07-02) -- "Feather Spray"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
 <b>Terms of Use:</b><br>
 Authors/funders retain copyright (where applicable) of code on this Github repo and the article. Anyone who wishes to share, reuse, remix, or adapt this material must obtain permission from the corresponding author. By using the contents on this Github repo and the article, you agree to cite our paper.
 
