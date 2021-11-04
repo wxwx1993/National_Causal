@@ -21,7 +21,7 @@ Cox_raw <- coxph(Surv(followup_year, followup_year_plus_one,dead) ~ pm25_ensembl
                    poverty + education + popdensity + pct_owner_occ +
                    summer_tmmx + winter_tmmx + summer_rmax + winter_rmax +
                    as.factor(year) + as.factor(region) +
-                   strata(as.factor(entry_age_break)) + strata(as.factor(sex)) + strata(as.factor(race)) + strata(as.factor(dual)),
+                   strata(as.factor(entry_age_break), as.factor(sex), as.factor(race), as.factor(dual)),
                  data = national_merged2016,
                  ties = c("efron"),
                  na.action = na.omit)
