@@ -14,7 +14,7 @@ load(paste0(dir_data, "covariates.RData"))
 load(paste0(dir_data, "aggregate_data.RData"))
 aggregate_data <- merge(aggregate_data, covariates, by = c("zip", "year"), all.x = TRUE)
 
-# Cox Proportional Hazard
+# Cox Proportional Hazard (NOT IMPLEMENTED due to large data set; we instead used SAS implementation)
 Cox_raw <- coxph(Surv(followup_year, followup_year_plus_one,dead) ~ pm25_ensemble +
                    mean_bmi + smoke_rate + hispanic + pct_blk +
                    medhouseholdincome + medianhousevalue +
