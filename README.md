@@ -1,6 +1,6 @@
 # National Causal Studies
 
-<img src="https://img.shields.io/badge/Study%20Status-Results%20Available-yellow.svg" alt="Study Status: Results Available"> 
+<img src="https://img.shields.io/badge/Study%20Status-Publication%20Available-green.svg" alt="Study Status: Publication Available"> 
 
 This is the data repository for publicly available code and data to conduct analyses in the paper titled "Evaluating the Impact of Long-term Exposure to Fine Particulate Matter on Mortality Among the Elderly." This paper provides a useful statistical causal inference framework to evaluate potential causal relationships under a set of explicit causal inference assumptions in environmental epidemiological studies.
 
